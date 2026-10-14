@@ -45,6 +45,8 @@ export interface QuoteCost {
   label: string;
   days: number;
   lines: Lines;
+  /** The winter extras that were added up, in the order typed. */
+  extras: Extra[];
   litres: number;
   totalCents: number;
   perDayCents: number;
@@ -64,6 +66,7 @@ export function costQuote(q: Quote, t: TripShared): QuoteCost {
     label: q.label,
     days: q.days,
     lines,
+    extras: q.extras,
     litres: litresUsed(t.km, q.l100Hundredths),
     totalCents: total,
     perDayCents: perDay,

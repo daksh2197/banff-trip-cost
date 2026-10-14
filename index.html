@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Banff Trip Cost</title>
+    <meta
+      name="description"
+      content="The true cost of a Rockies road trip: rental, fuel, park pass and winter extras, ranked. Free, works offline, no account."
+    />
+    <meta name="theme-color" content="#111214" />
+    <meta name="color-scheme" content="dark" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Banff Trip Cost" />
+    <meta property="og:description" content="The whole number before you book: rental, fuel, park pass and winter extras, ranked." />
+    <meta name="twitter:card" content="summary" />
+    <script type="module" src="/src/main.ts"></script>
+  </head>
+  <body>
+    <a class="skip" href="#trip">Skip to the form</a>
+
+    <header class="site-head" data-chrome>
+      <a class="brand" href="https://dakshdua.ca" aria-label="Daksh Dua, dakshdua.ca">
+        <span class="brand-tile" aria-hidden="true">DD</span>
+        <span>Daksh Dua</span>
+      </a>
+      <nav class="head-links" aria-label="About this tool">
+        <a href="#sources">Where the numbers come from</a>
+        <a href="%REPO_URL%">Source</a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="intro" data-chrome>
+        <h1>Banff Trip Cost</h1>
+        <p class="lede">A rental quote is the first number on the trip. This adds the rest: fuel, the park pass and winter extras.</p>
+      </div>
+
+      <p class="note" id="sample-note" hidden></p>
+      <p class="note" id="link-note" hidden></p>
+
+      <section class="results" id="results" aria-labelledby="results-h">
+        <h2 id="results-h" class="vh">The ranking</h2>
+        <div class="hero" id="hero" aria-live="polite" aria-atomic="true"></div>
+        <ul class="missing" id="missing"></ul>
+        <ol class="ranked" id="ranked"></ol>
+        <div id="unpriced"></div>
+        <section class="compare" id="compare" aria-labelledby="compare-h" hidden>
+          <h3 id="compare-h">Compare two quotes</h3>
+          <div class="row">
+            <div class="field">
+              <label for="cmp-a">First quote</label>
+              <select id="cmp-a"></select>
+            </div>
+            <div class="field">
+              <label for="cmp-b">Second quote</label>
+              <select id="cmp-b"></select>
+            </div>
+          </div>
+          <p class="verdict-line" id="cmp-sentence" aria-live="polite"></p>
+          <table class="deltas" id="cmp-table">
+            <caption class="vh">Second quote minus first quote, line by line</caption>
+            <thead>
+              <tr><th scope="col">Line</th><th scope="col" id="cmp-h-a"></th><th scope="col" id="cmp-h-b"></th><th scope="col">Difference</th></tr>
+            </thead>
+            <tbody id="cmp-body"></tbody>
+          </table>
+        </section>
+        <div class="actions">
+          <button type="button" class="btn btn-primary" id="copy-link">Copy link to this trip</button>
+          <button type="button" class="btn btn-ghost" id="clear">Clear everything</button>
+          <button type="button" class="btn btn-ghost" id="sample" hidden>Show the sample again</button>
+        </div>
+        <p class="toast" id="toast" role="status"></p>
+        <textarea class="copy-fallback" id="copy-fallback" rows="3" readonly hidden aria-label="Link to copy"></textarea>
+      </section>
+
+      <div class="inputs">
+        <section class="block" id="trip" aria-labelledby="trip-h">
+          <h2 id="trip-h">1. Your trip</h2>
+          <p class="hint lead">Every quote is priced over the same trip. Distances start in Calgary.</p>
+
+          <div class="field">
+            <label for="route">Where to</label>
+            <select id="route"></select>
+            <p class="hint" id="route-basis"></p>
+          </div>
+          <div class="row">
+            <div class="field" id="oneway-field" hidden>
+              <label for="oneway">One-way distance (km)</label>
+              <input id="oneway" type="text" inputmode="decimal" autocomplete="off" data-bind="oneWay" aria-describedby="oneway-err" />
+              <p class="err" id="oneway-err"></p>
+            </div>
+            <div class="field">
+              <label for="extrakm">Extra driving there (km)</label>
+              <input id="extrakm" type="text" inputmode="decimal" autocomplete="off" data-bind="extraKm" aria-describedby="extrakm-hint extrakm-err" />
+              <p class="hint" id="extrakm-hint">Side trips and local driving. Optional.</p>
+              <p class="err" id="extrakm-err"></p>
+            </div>
+          </div>
+          <p class="readout-line" id="km-line"></p>
+
+          <div class="field">
+            <label for="fuelprice">Fuel price ($ per litre)</label>
+            <input id="fuelprice" type="text" inputmode="decimal" autocomplete="off" data-bind="fuelPrice" aria-describedby="fuelprice-hint fuelprice-err" />
+            <p class="hint" id="fuelprice-hint">
+              Type the price you expect to pay for the fuel your vehicle takes. There is no default: I found no current official pump price I could cite.
+            </p>
+            <p class="err" id="fuelprice-err"></p>
+          </div>
+
+          <fieldset class="group">
+            <legend>Who is in the vehicle</legend>
+            <div class="row three">
+              <div class="field">
+                <label for="adults">Adults (18 to 64)</label>
+                <input id="adults" type="text" inputmode="numeric" autocomplete="off" data-bind="adults" aria-describedby="adults-err" />
+                <p class="err" id="adults-err"></p>
+              </div>
+              <div class="field">
+                <label for="seniors">Seniors (65+)</label>
+                <input id="seniors" type="text" inputmode="numeric" autocomplete="off" data-bind="seniors" aria-describedby="seniors-err" />
+                <p class="err" id="seniors-err"></p>
+              </div>
+              <div class="field">
+                <label for="youths">Youth (6 to 17)</label>
+                <input id="youths" type="text" inputmode="numeric" autocomplete="off" data-bind="youths" aria-describedby="youths-err" />
+                <p class="err" id="youths-err"></p>
+              </div>
+            </div>
+          </fieldset>
+
+          <div class="row">
+            <div class="field">
+              <label for="parkdays">Days you will be in a national park</label>
+              <input id="parkdays" type="text" inputmode="numeric" autocomplete="off" data-bind="parkDays" aria-describedby="parkdays-hint parkdays-err" />
+              <p class="hint" id="parkdays-hint">
+                I count the days you type. A daily pass is good until 4 pm the next day, so a short stay can need fewer passes than days.
+              </p>
+              <p class="err" id="parkdays-err"></p>
+            </div>
+            <div class="field">
+              <label for="passmode">Park pass</label>
+              <select id="passmode" data-bind="passMode">
+                <option value="auto">Cheaper of daily or Discovery</option>
+                <option value="daily">Daily passes</option>
+                <option value="discovery">Discovery Pass (a year)</option>
+                <option value="none">None: I have one, or I will not stop</option>
+                <option value="typed">I will type the amount</option>
+              </select>
+            </div>
+          </div>
+          <div class="field" id="typedpass-field" hidden>
+            <label for="typedpass">Park pass amount ($)</label>
+            <input id="typedpass" type="text" inputmode="decimal" autocomplete="off" data-bind="typedPass" aria-describedby="typedpass-err" />
+            <p class="err" id="typedpass-err"></p>
+          </div>
+          <div class="field" id="kdays-field" hidden>
+            <label for="kdays">Days in Kananaskis</label>
+            <input id="kdays" type="text" inputmode="numeric" autocomplete="off" data-bind="kDays" aria-describedby="kdays-err" />
+            <p class="hint">Conservation Pass, per vehicle per day. Rental vehicles are not exempt.</p>
+            <p class="err" id="kdays-err"></p>
+          </div>
+          <p class="hint" id="pass-note"></p>
+
+          <div class="field" id="basis-field" hidden>
+            <label for="basis">Fuel rating to use when you pick a vehicle</label>
+            <select id="basis" data-bind="basis">
+              <option value="comb">Combined (55% city, 45% highway)</option>
+              <option value="hwy">Highway</option>
+              <option value="city">City</option>
+            </select>
+          </div>
+        </section>
+
+        <section class="block" id="quotes" aria-labelledby="quotes-h">
+          <h2 id="quotes-h">2. Rental quotes</h2>
+          <p class="hint lead">Type each total as the rental offer shows it. Nothing here is fetched from any rental site.</p>
+          <div id="quote-list"></div>
+          <button type="button" class="btn btn-ghost" id="add-quote">Add another quote</button>
+          <p class="hint" id="quote-cap" hidden>That is the most quotes this page holds.</p>
+          <p class="hint" id="vehicle-status"></p>
+        </section>
+
+        <section class="block" aria-labelledby="winter-h">
+          <h2 id="winter-h">Winter rules</h2>
+          <p id="winter-text"></p>
+          <p class="hint">From Parks Canada. Add tires, chains or insurance as an extra line on a quote.</p>
+        </section>
+      </div>
+
+      <section class="block sources" id="sources" data-chrome aria-labelledby="sources-h">
+        <h2 id="sources-h">Where the numbers come from</h2>
+        <p>
+          Every price, distance and rule on this page has a source and a date, or you typed it. Park prices, the Kananaskis price and the
+          distances were copied by hand from the pages below on <span id="checked-on"></span>. The fuel ratings come from a monthly job that
+          downloads the government file, checks it, and commits the result.
+        </p>
+        <h3>Typed in by hand</h3>
+        <ul class="src-list" id="ref-sources"></ul>
+        <h3>Downloaded by the monthly job</h3>
+        <ul class="src-list" id="data-sources"></ul>
+        <h3>Routes</h3>
+        <ul class="src-list" id="route-sources"></ul>
+        <p class="legal" id="attribution"></p>
+      </section>
+
+      <section class="block fine" data-chrome aria-labelledby="fine-h">
+        <h2 id="fine-h">Read this before you book</h2>
+        <p>
+          This is a calculator, not financial advice. It adds up what you type and the figures above. It does not check availability, and it
+          does not know what a rental company will charge at the counter.
+        </p>
+        <p>
+          Fuel ratings are test-cycle numbers from Natural Resources Canada. Real use varies with speed, weather, air conditioning and the
+          vehicle's age, and cold weather can raise it a lot. The calculator adds no winter uplift of its own.
+        </p>
+        <p>
+          Not affiliated with Parks Canada, Natural Resources Canada, the Government of Alberta or any rental company. No rental company is
+          named, ranked or linked here.
+        </p>
+        <p>
+          Everything runs on your device. What you type is not sent anywhere. A shared link carries your numbers after the "#", which
+          browsers never send to a website.
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-foot" data-chrome>
+      <p>Built by <a href="https://dakshdua.ca">Daksh Dua</a> in Calgary.</p>
+      <p>Free and open source. <a href="%REPO_URL%">Read the code</a>.</p>
+    </footer>
+  </body>
+</html>

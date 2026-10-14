@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#111214"/>
+  <!-- a mountain ridge over a road: the trip, and the total -->
+  <path d="M60 330 L190 150 L250 235 L318 120 L452 330 Z" fill="#22252A" stroke="#EDE8DD" stroke-opacity=".5" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M318 120 L352 172 L330 164 L318 182 L296 160 Z" fill="#EDE8DD" fill-opacity=".85"/>
+  <path d="M0 400 H512 V512 H0 Z" fill="#1A1C20"/>
+  <path d="M256 512 L232 400 H280 Z" fill="#FF5A1F"/>
+  <path d="M256 492 V470 M256 450 V430 M256 418 V406" stroke="#111214" stroke-width="6" stroke-linecap="round"/>
+</svg>
