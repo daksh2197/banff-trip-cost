@@ -72,6 +72,15 @@ describe('money', () => {
     expect(value(parseMoney('9'.repeat(40)))).toBe('fail:too-large');
   });
 
+  it('writes messages that read as sentences', () => {
+    const big = parseMoney('2000000', 'the daily rate');
+    expect(!big.ok && big.message).toBe('The daily rate is over $1,000,000. Check it.');
+    const junk = parseMoney('abc', 'the fees and taxes', true);
+    expect(!junk.ok && junk.message).toBe('The fees and taxes should be a number, like 12.50.');
+    const neg = parseMoney('-5', 'the daily rate');
+    expect(!neg.ok && neg.message).toBe("The daily rate can't be negative.");
+  });
+
   it('gives a message that names the box', () => {
     const r = parseMoney('', 'the daily rate');
     expect(!r.ok && r.message).toBe('Enter the daily rate.');

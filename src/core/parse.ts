@@ -97,6 +97,8 @@ function split(text: string, maxDecimals: number): SplitResult {
   return { ok: true, split: { negative, int: intText, frac } };
 }
 
+const cap = (t: string) => `${t[0]?.toUpperCase() ?? ''}${t.slice(1)}`;
+
 function fail(reason: ParseReason, message: string): Parsed {
   return { ok: false, reason, message };
 }
@@ -106,7 +108,7 @@ function messageFor(reason: ParseReason, what: string, decimals: number): string
     case 'blank':
       return `Enter ${what}.`;
     case 'invalid':
-      return `${what[0]?.toUpperCase() ?? ''}${what.slice(1)} should be a number, like 12.50.`;
+      return `${cap(what)} should be a number, like 12.50.`;
     case 'too-many-decimals':
       return decimals === 0 ? `Use whole numbers for ${what}.` : `Use at most ${decimals} decimal places for ${what}.`;
     case 'ambiguous':
@@ -127,11 +129,11 @@ function toUnits(
   if (!r.ok) return fail(r.reason, messageFor(r.reason, what, decimals));
   const { negative, int, frac } = r.split;
   const magnitude = Number(int) * 10 ** decimals + Number(frac.padEnd(decimals, '0') || '0');
-  if (!Number.isSafeInteger(magnitude)) return fail('too-large', opts.maxMessage ?? `That ${what} is too large.`);
-  if (negative && magnitude !== 0 && !opts.allowNegative) return fail('negative', `${what[0]?.toUpperCase() ?? ''}${what.slice(1)} can't be negative.`);
+  if (!Number.isSafeInteger(magnitude)) return fail('too-large', opts.maxMessage ?? `${cap(what)} is too large.`);
+  if (negative && magnitude !== 0 && !opts.allowNegative) return fail('negative', `${cap(what)} can't be negative.`);
   const value = negative && magnitude !== 0 ? -magnitude : magnitude;
-  if (value > opts.max) return fail('too-large', opts.maxMessage ?? `That ${what} is too large.`);
-  if (value < opts.min) return fail('too-small', opts.minMessage ?? `That ${what} is too small.`);
+  if (value > opts.max) return fail('too-large', opts.maxMessage ?? `${cap(what)} is too large.`);
+  if (value < opts.min) return fail('too-small', opts.minMessage ?? `${cap(what)} is too small.`);
   return { ok: true, value: value === 0 ? 0 : value };
 }
 
@@ -144,7 +146,7 @@ export function parseMoney(text: string, what = 'the amount', allowNegative = fa
     min: allowNegative ? -MAX_MONEY_CENTS : 0,
     max: MAX_MONEY_CENTS,
     allowNegative,
-    maxMessage: `That ${what} is over $1,000,000. Check it.`,
+    maxMessage: `${cap(what)} is over $1,000,000. Check it.`,
   });
 }
 

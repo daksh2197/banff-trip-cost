@@ -328,7 +328,7 @@ main {
 
 .line {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, auto);
+  grid-template-columns: max-content minmax(0, 1fr);
   gap: 2px 12px;
   padding: 6px 0;
   border-top: 1px dotted var(--line);
@@ -336,6 +336,7 @@ main {
 
 .line dt {
   color: var(--chalk);
+  overflow-wrap: normal;
 }
 
 .line dd {

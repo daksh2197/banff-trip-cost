@@ -1,0 +1,69 @@
+# The monthly data job.
+#
+#   1. download the fuel ratings CSV from the Open Government portal
+#   2. check it (pipeline/validate.ts). If a check fails this run goes red and the old data stays.
+#   3. run the tests and the build against the new data
+#   4. commit public/data/*.json to main, if anything changed
+#   5. start the "Test and ship" workflow, because a push made with the built-in token does not start it on its own
+#
+# You can also run it by hand from the Actions tab (Run workflow).
+
+name: Refresh data
+
+on:
+  schedule:
+    - cron: '17 9 8 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: refresh-data
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    name: Fetch, check, commit
+    # Forks have no business running this on a timer.
+    if: github.repository == 'daksh2197/banff-trip-cost'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      - name: Download and check the ratings
+        run: npm run data:refresh
+
+      - name: Tests and build against the new data
+        run: |
+          npm test
+          npm run build
+
+      - name: Commit the data if it changed
+        id: commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/data
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No change in the data."
+          else
+            git commit -m "Refresh fuel ratings data ($(date -u +%Y-%m-%d))"
+            git push origin HEAD:main
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Start the deploy
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run ship.yml --ref main
