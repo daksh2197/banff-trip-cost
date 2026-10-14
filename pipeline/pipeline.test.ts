@@ -206,7 +206,7 @@ describe('the job, against a local server that behaves like the portal', () => {
     expect((await readdir(dir)).sort()).toEqual(['provenance.json', 'vehicles.json']);
   });
 
-  it('writes the same bytes twice for the same input, so a no-change month is an empty commit', async () => {
+  it('writes the same bytes twice for the same input', async () => {
     mode = 'ok';
     body = makeCsv(250);
     const dir = await tmp();

@@ -488,7 +488,7 @@ main {
 }
 
 .btn-quiet {
-  border-color: var(--line-2);
+  border-color: var(--field-line);
   color: var(--muted);
   font-weight: 500;
 }

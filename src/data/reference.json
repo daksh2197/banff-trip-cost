@@ -2,8 +2,17 @@
   "checkedOn": "2026-10-13",
   "checkedNote": "Prices and rules below were read from the official pages on this date. They are not fetched by the monthly job. Check the page before you book.",
   "passes": {
-    "dailyCents": { "adult": 1225, "senior": 1075, "youth": 0, "familyGroup": 2450 },
-    "discoveryCents": { "adult": 8350, "senior": 7150, "familyGroup": 16750 },
+    "dailyCents": {
+      "adult": 1225,
+      "senior": 1075,
+      "youth": 0,
+      "familyGroup": 2450
+    },
+    "discoveryCents": {
+      "adult": 8350,
+      "senior": 7150,
+      "familyGroup": 16750
+    },
     "maxPerVehicle": 7,
     "dailyValidUntil": "4:00 pm the day after purchase",
     "source": "https://www.parks.canada.ca/pn-np/ab/banff/visit/tarifs-fees",
@@ -22,22 +31,26 @@
       "oneWayKm": 130,
       "method": "official",
       "basis": "Parks Canada's itinerary page says 130 km from Calgary.",
-      "sourceUrls": ["https://parks.canada.ca/voyage-travel/region/ouest-west/itin/itin1"]
+      "sourceUrls": [
+        "https://parks.canada.ca/voyage-travel/region/ouest-west/itin/itin1"
+      ]
     },
     {
       "id": "lake-louise",
       "label": "Lake Louise",
       "oneWayKm": null,
       "method": "typed",
-      "basis": "No single official figure. Parks Canada's Yoho page puts Field 213 km from Calgary and 30 km from Lake Louise, which implies about 183 km. Adding 60 km to Banff gives 190 km. Type your own.",
-      "sourceUrls": ["https://parks.canada.ca/pn-np/bc/yoho/visit/directions"]
+      "basis": "No single official figure. Parks Canada's Yoho page puts Field 213 km from Calgary and 30 km from Lake Louise, which implies about 183 km. Adding 60 km to Banff gives 190 km.",
+      "sourceUrls": [
+        "https://parks.canada.ca/pn-np/bc/yoho/visit/directions"
+      ]
     },
     {
       "id": "canmore",
       "label": "Canmore",
       "oneWayKm": null,
       "method": "typed",
-      "basis": "I found no official distance. Type your own.",
+      "basis": "I found no official figure to cite.",
       "sourceUrls": []
     },
     {
@@ -45,8 +58,10 @@
       "label": "Kananaskis",
       "oneWayKm": null,
       "method": "typed",
-      "basis": "Sources give different end points, so there is no one official figure. Type your own. Adds the Kananaskis Conservation Pass: day passes are per vehicle, and rental vehicles are not exempt.",
-      "sourceUrls": ["https://www.alberta.ca/kananaskis-conservation-pass"],
+      "basis": "Sources give different end points, so there is no single official figure. Adds the Kananaskis Conservation Pass: day passes are per vehicle, and rental vehicles are not exempt.",
+      "sourceUrls": [
+        "https://www.alberta.ca/kananaskis-conservation-pass"
+      ],
       "kpass": true
     },
     {
@@ -55,7 +70,9 @@
       "oneWayKm": 213,
       "method": "official",
       "basis": "Parks Canada's Yoho directions page says Field is 213 km from Calgary.",
-      "sourceUrls": ["https://parks.canada.ca/pn-np/bc/yoho/visit/directions"]
+      "sourceUrls": [
+        "https://parks.canada.ca/pn-np/bc/yoho/visit/directions"
+      ]
     },
     {
       "id": "jasper-icefields",
@@ -63,7 +80,10 @@
       "oneWayKm": null,
       "method": "typed",
       "basis": "Parks Canada gives Lake Louise to Jasper as 232 km on the Icefields Parkway. Add your Calgary to Lake Louise leg (about 183 to 190 km, see Lake Louise) and type the total. In winter there are no services between Jasper and Lake Louise, so fill up first.",
-      "sourceUrls": ["https://parks.canada.ca/pn-np/ab/banff/visit/les10-top10/glaciers-icefields", "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/hiver-winter/pcghiver-ipwinter/pcg-securite-safety-ip"]
+      "sourceUrls": [
+        "https://parks.canada.ca/pn-np/ab/banff/visit/les10-top10/glaciers-icefields",
+        "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/hiver-winter/pcghiver-ipwinter/pcg-securite-safety-ip"
+      ]
     },
     {
       "id": "radium-93s",
@@ -71,7 +91,10 @@
       "oneWayKm": 267,
       "method": "derived",
       "basis": "Added up from Parks Canada pages: 130 km to Banff, 41 km on to the Kootenay gate, 94 km through the park, 2 km to Radium.",
-      "sourceUrls": ["https://parks.canada.ca/pn-np/bc/kootenay/visit/directions", "https://parks.canada.ca/voyage-travel/region/ouest-west/itin/itin1"]
+      "sourceUrls": [
+        "https://parks.canada.ca/pn-np/bc/kootenay/visit/directions",
+        "https://parks.canada.ca/voyage-travel/region/ouest-west/itin/itin1"
+      ]
     }
   ],
   "winterRules": [

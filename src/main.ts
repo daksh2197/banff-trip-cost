@@ -126,7 +126,7 @@ function syncVisibility(): void {
   byId('typedpass-field').hidden = state.passMode !== 'typed';
   byId('basis-field').hidden = vehicles.length === 0;
   const basisText = route
-    ? `${route.method === 'official' ? 'Official figure' : route.method === 'derived' ? 'Added up from official pages' : 'No official figure'}: ${route.basis}`
+    ? `${route.method === 'official' ? 'Official figure' : route.method === 'derived' ? 'Added up from official pages' : 'Type your own distance'}: ${route.basis}`
     : 'Type the one-way distance from your own start, in kilometres. The calculator doubles it for the round trip.';
   setText(byId('route-basis'), basisText);
 }
