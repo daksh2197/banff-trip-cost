@@ -1,0 +1,12 @@
+Model year,Make,Model,Vehicle class,Engine size (L),Cylinders,Transmission,Fuel type,City (L/100 km),Highway (L/100 km),Combined (L/100 km),Combined (mpg),CO2 emissions (g/km),CO2 rating,Smog rating
+2026,Samplecar,Fine One,Compact,1.5,4,A8,X,9.1,6.4,7.9,36,184,6,6
+2026,Samplecar,Blank Rating,Compact,1.5,4,A8,X,9.1,,7.9,36,184,6,6
+2026,Samplecar,Dash Rating,Compact,1.5,4,A8,X,-,6.4,7.9,36,184,6,6
+2026,Samplecar,Too Thirsty,Compact,1.5,4,A8,X,99,6.4,7.9,36,184,6,6
+2026,Samplecar,Too Frugal,Compact,1.5,4,A8,X,0.2,0.2,0.2,36,184,6,6
+2026,Samplecar,Electric Eel,Compact,,,A1,B,2.0,1.9,1.9,100,0,10,6
+2026,Samplecar,Mystery Fuel,Compact,1.5,4,A8,Q,9.1,6.4,7.9,36,184,6,6
+2019,Samplecar,Old Timer,Compact,1.5,4,A8,X,9.1,6.4,7.9,36,184,6,6
+2026,,No Make,Compact,1.5,4,A8,X,9.1,6.4,7.9,36,184,6,6
+2026,Samplecar,Fine One,Compact,1.5,4,A8,X,9.1,6.4,7.9,36,184,6,6
+2026,Samplecar,Second Fine,Compact,2.0,4,M6,X,10.1,7.4,8.9,32,200,5,6

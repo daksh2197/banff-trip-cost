@@ -1,0 +1,125 @@
+{
+  "checkedOn": "2026-10-13",
+  "checkedNote": "Prices and rules below were read from the official pages on this date. They are not fetched by the monthly job. Check the page before you book.",
+  "passes": {
+    "dailyCents": { "adult": 1225, "senior": 1075, "youth": 0, "familyGroup": 2450 },
+    "discoveryCents": { "adult": 8350, "senior": 7150, "familyGroup": 16750 },
+    "maxPerVehicle": 7,
+    "dailyValidUntil": "4:00 pm the day after purchase",
+    "source": "https://www.parks.canada.ca/pn-np/ab/banff/visit/tarifs-fees",
+    "rulesSource": "https://parks.canada.ca/pn-np/ab/banff/visit/passer-passes"
+  },
+  "kpass": {
+    "dayCents": 1500,
+    "perVehicle": true,
+    "rentalExempt": false,
+    "source": "https://www.alberta.ca/kananaskis-conservation-pass"
+  },
+  "routes": [
+    {
+      "id": "banff",
+      "label": "Banff",
+      "oneWayKm": 130,
+      "method": "official",
+      "basis": "Parks Canada's itinerary page says 130 km from Calgary.",
+      "sourceUrls": ["https://parks.canada.ca/voyage-travel/region/ouest-west/itin/itin1"]
+    },
+    {
+      "id": "lake-louise",
+      "label": "Lake Louise",
+      "oneWayKm": null,
+      "method": "typed",
+      "basis": "No single official figure. Parks Canada's Yoho page puts Field 213 km from Calgary and 30 km from Lake Louise, which implies about 183 km. Adding 60 km to Banff gives 190 km. Type your own.",
+      "sourceUrls": ["https://parks.canada.ca/pn-np/bc/yoho/visit/directions"]
+    },
+    {
+      "id": "canmore",
+      "label": "Canmore",
+      "oneWayKm": null,
+      "method": "typed",
+      "basis": "I found no official distance. Type your own.",
+      "sourceUrls": []
+    },
+    {
+      "id": "kananaskis",
+      "label": "Kananaskis",
+      "oneWayKm": null,
+      "method": "typed",
+      "basis": "Sources give different end points, so there is no one official figure. Type your own. Adds the Kananaskis Conservation Pass: day passes are per vehicle, and rental vehicles are not exempt.",
+      "sourceUrls": ["https://www.alberta.ca/kananaskis-conservation-pass"],
+      "kpass": true
+    },
+    {
+      "id": "yoho-field",
+      "label": "Field and Yoho",
+      "oneWayKm": 213,
+      "method": "official",
+      "basis": "Parks Canada's Yoho directions page says Field is 213 km from Calgary.",
+      "sourceUrls": ["https://parks.canada.ca/pn-np/bc/yoho/visit/directions"]
+    },
+    {
+      "id": "jasper-icefields",
+      "label": "Jasper by the Icefields Parkway",
+      "oneWayKm": null,
+      "method": "typed",
+      "basis": "Parks Canada gives Lake Louise to Jasper as 232 km on the Icefields Parkway. Add your Calgary to Lake Louise leg (about 183 to 190 km, see Lake Louise) and type the total. In winter there are no services between Jasper and Lake Louise, so fill up first.",
+      "sourceUrls": ["https://parks.canada.ca/pn-np/ab/banff/visit/les10-top10/glaciers-icefields", "https://parks.canada.ca/pn-np/ab/jasper/activ/experience/hiver-winter/pcghiver-ipwinter/pcg-securite-safety-ip"]
+    },
+    {
+      "id": "radium-93s",
+      "label": "Radium by Highway 93 South",
+      "oneWayKm": 267,
+      "method": "derived",
+      "basis": "Added up from Parks Canada pages: 130 km to Banff, 41 km on to the Kootenay gate, 94 km through the park, 2 km to Radium.",
+      "sourceUrls": ["https://parks.canada.ca/pn-np/bc/kootenay/visit/directions", "https://parks.canada.ca/voyage-travel/region/ouest-west/itin/itin1"]
+    }
+  ],
+  "winterRules": [
+    {
+      "text": "Icefields Parkway and Highway 93 South in Banff National Park: winter tires or chains from November 1 to March 31, or any time the road is snow or ice covered. Highway 93 South in Kootenay and Highway 1 in Yoho: October 1 to April 30. Look for the snowflake or M+S mark.",
+      "source": "https://parks.canada.ca/pn-np/ab/banff/securite-safety/conduite-driving"
+    }
+  ],
+  "sources": [
+    {
+      "id": "parks-fees",
+      "title": "Parks Canada, Banff National Park fees",
+      "publisher": "Parks Canada",
+      "url": "https://www.parks.canada.ca/pn-np/ab/banff/visit/tarifs-fees",
+      "used": "Daily admission and Discovery Pass prices",
+      "terms": "Prices are facts, copied by hand. Not fetched by the monthly job.",
+      "checkedOn": "2026-10-13",
+      "pageDate": "2026-02-12"
+    },
+    {
+      "id": "parks-passes",
+      "title": "Parks Canada, Passes",
+      "publisher": "Parks Canada",
+      "url": "https://parks.canada.ca/pn-np/ab/banff/visit/passer-passes",
+      "used": "When a pass is needed, and the 4 pm rule",
+      "terms": "Wording summarised, not copied.",
+      "checkedOn": "2026-10-13",
+      "pageDate": "2026-09-28"
+    },
+    {
+      "id": "kpass",
+      "title": "Government of Alberta, Kananaskis Conservation Pass",
+      "publisher": "Government of Alberta",
+      "url": "https://www.alberta.ca/kananaskis-conservation-pass",
+      "used": "Day pass price per vehicle",
+      "terms": "Price is a fact, copied by hand. Not fetched by the monthly job.",
+      "checkedOn": "2026-10-13",
+      "pageDate": "2026-07-07"
+    },
+    {
+      "id": "routes",
+      "title": "Parks Canada itinerary, Yoho and Kootenay directions pages",
+      "publisher": "Parks Canada",
+      "url": "https://parks.canada.ca/voyage-travel/region/ouest-west/itin/itin1",
+      "used": "One-way kilometres from Calgary for Banff, Field and Radium",
+      "terms": "Distances are facts, copied by hand. Each route shows how its figure was obtained.",
+      "checkedOn": "2026-10-13",
+      "pageDate": null
+    }
+  ]
+}

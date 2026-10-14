@@ -1,0 +1,6 @@
+﻿Model year,Make,Model,Vehicle class,Engine size (L),Cylinders,Transmission,Fuel type,City (L/100 km),Highway (L/100 km),Combined (L/100 km),Combined (mpg),CO2 emissions (g/km),CO2 rating,Smog rating
+2026,Samplecar,Alpha,Compact,1.5,4,A8,X,9.1,6.4,7.9,36,184,6,6
+2026,Samplecar,"Alpha ""Sport"", 2.0T",Compact,2.0,4,AS8,Z,10.6,7.1,8.9,32,208,5,6
+2026,Testmotor,Big Hauler,Pickup truck: Standard,5.7,8,A10,X,"16,0",11.1,13.8,20,321,3,5
+2026,Testmotor,Diesel Dan,SUV: Small,3.0,6,A8,D,9.9,7.3,8.7,32,230,5,5
+
