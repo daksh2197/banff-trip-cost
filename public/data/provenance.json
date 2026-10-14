@@ -1,3 +1,19 @@
 {
-  "sources": []
+  "sources": [
+    {
+      "id": "nrcan-fcr-my2026",
+      "title": "Fuel Consumption Ratings, model year 2026",
+      "publisher": "Natural Resources Canada",
+      "sourceUrl": "https://open.canada.ca/data/en/dataset/98f1a129-f628-4ce4-b24d-6f16bf24dd64",
+      "licence": "Open Government Licence – Canada",
+      "licenceUrl": "https://open.canada.ca/en/open-government-licence-canada",
+      "attribution": "Contains information licensed under the Open Government Licence – Canada.",
+      "fileDate": "2026-10-06",
+      "fetchedOn": "2026-10-14",
+      "rowsRead": 613,
+      "rowsKept": 613,
+      "rowsLeftOut": 0,
+      "duplicatesDropped": 0
+    }
+  ]
 }
