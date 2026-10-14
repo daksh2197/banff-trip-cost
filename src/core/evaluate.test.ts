@@ -140,6 +140,25 @@ describe('the park pass line', () => {
     expect(daily.trip.problems['adults']?.message).toMatch(/at least one traveller/);
   });
 
+  it('asks for the park days instead of pricing a blank box at zero', () => {
+    for (const mode of ['auto', 'daily'] as const) {
+      const e = evaluate(withQuote({}, { parkDays: '', passMode: mode }), R);
+      expect(e.ranked, mode).toEqual([]);
+      expect(e.trip.problems['parkDays']?.blank, mode).toBe(true);
+    }
+    // an explicit 0 is an answer; the Discovery Pass, "none" and a typed amount do not need the days
+    expect(evaluate(withQuote({}, { parkDays: '0', passMode: 'auto' }), R).ranked).toHaveLength(1);
+    for (const mode of ['discovery', 'none'] as const) expect(evaluate(withQuote({}, { parkDays: '', passMode: mode }), R).ranked, mode).toHaveLength(1);
+    expect(evaluate(withQuote({}, { parkDays: '', passMode: 'typed', typedPass: '10' }), R).ranked).toHaveLength(1);
+  });
+
+  it('asks for the Kananaskis days instead of leaving the Conservation Pass out', () => {
+    const e = evaluate(withQuote({}, { routeId: 'kananaskis', oneWay: '90', kDays: '' }), R);
+    expect(e.ranked).toEqual([]);
+    expect(e.trip.problems['kDays']?.blank).toBe(true);
+    expect(evaluate(withQuote({}, { routeId: 'kananaskis', oneWay: '90', kDays: '0' }), R).ranked).toHaveLength(1);
+  });
+
   it('uses a typed pass amount', () => {
     const e = evaluate(withQuote({}, { passMode: 'typed', typedPass: '75.50' }), R);
     expect(e.trip.pass?.cents).toBe(7550);

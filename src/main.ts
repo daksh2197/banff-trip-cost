@@ -362,7 +362,7 @@ function paintRanked(ev: Evaluation): void {
         el(
           'div',
           { class: 'rq-head' },
-          el('span', { class: 'rank', 'aria-label': `Rank ${r.rank}` }, String(r.rank)),
+          el('span', { class: 'rank' }, el('span', { class: 'vh' }, 'Rank '), String(r.rank)),
           el('h3', {}, r.label.trim() || `Quote ${idx + 1}`),
           el('p', { class: 'rq-total' }, dollars(r.totalCents)),
         ),
@@ -414,11 +414,14 @@ function paintCompare(ev: Evaluation): void {
   setText(byId('cmp-h-a'), qa.label.trim() || 'First');
   setText(byId('cmp-h-b'), qb.label.trim() || 'Second');
   const names = { rental: 'Rental', fees: 'Fees and taxes', fuel: 'Fuel', extras: 'Winter extras' } as const;
+  const nameA = qa.label.trim() || 'First';
+  const nameB = qb.label.trim() || 'Second';
+  const diff = (n: number) => (n === 0 ? 'same' : `${n > 0 ? '+' : '\u2212'}${dollars(Math.abs(n))}`);
+  const row = (title: string, x: number, y: number, d: number, cls = '') =>
+    el('tr', { class: cls }, el('th', { scope: 'row' }, title), el('td', { 'data-label': nameA }, dollars(x)), el('td', { 'data-label': nameB }, dollars(y)), el('td', { 'data-label': 'Difference' }, diff(d)));
   byId('cmp-body').replaceChildren(
-    ...(Object.keys(names) as (keyof typeof names)[]).map((k) =>
-      el('tr', {}, el('th', { scope: 'row' }, names[k]), el('td', {}, dollars(qa.lines[k])), el('td', {}, dollars(qb.lines[k])), el('td', {}, c.deltas[k] === 0 ? 'same' : `${c.deltas[k] > 0 ? '+' : '−'}${dollars(Math.abs(c.deltas[k]))}`)),
-    ),
-    el('tr', { class: 'total' }, el('th', { scope: 'row' }, 'Whole trip'), el('td', {}, dollars(qa.totalCents)), el('td', {}, dollars(qb.totalCents)), el('td', {}, c.totalDelta === 0 ? 'same' : `${c.totalDelta > 0 ? '+' : '−'}${dollars(Math.abs(c.totalDelta))}`)),
+    ...(Object.keys(names) as (keyof typeof names)[]).map((k) => row(names[k], qa.lines[k], qb.lines[k], c.deltas[k])),
+    row('Whole trip', qa.totalCents, qb.totalCents, c.totalDelta, 'total'),
   );
 }
 
@@ -428,9 +431,9 @@ function paintSources(provenance: ProvenanceFile): void {
   setText(byId('checked-on'), ref.checkedOn);
   byId('ref-sources').replaceChildren(
     ...ref.sources.map((s) =>
-      el('li', {}, link(s.url, s.title), ` — ${s.used}. ${s.terms} Checked ${s.checkedOn}${s.pageDate ? `, page dated ${s.pageDate}` : ''}.`),
+      el('li', {}, link(s.url, s.title), `. ${s.used}. ${s.terms} Checked ${s.checkedOn}${s.pageDate ? `, page dated ${s.pageDate}` : ''}.`),
     ),
-    el('li', {}, link(ref.kpass.source, 'Kananaskis Conservation Pass'), ' — see above.'),
+    el('li', {}, link(ref.kpass.source, 'Kananaskis Conservation Pass'), '. Day price used on the Kananaskis route.'),
   );
   const data = byId('data-sources');
   if (provenance.sources.length > 0) {
@@ -440,7 +443,7 @@ function paintSources(provenance: ProvenanceFile): void {
           'li',
           {},
           link(s.sourceUrl, s.title),
-          ` — ${s.publisher}. Licence: `,
+          `. ${s.publisher}. Licence: `,
           link(s.licenceUrl, s.licence),
           `. File dated ${s.fileDate ?? 'not stated by the publisher'}; fetched ${s.fetchedOn}. ${s.rowsKept} listings kept, ${s.rowsLeftOut} left out as unusable.`,
         ),
@@ -449,7 +452,7 @@ function paintSources(provenance: ProvenanceFile): void {
   } else {
     data.replaceChildren(
       ...SOURCES.map((s) =>
-        el('li', {}, link(s.landingUrl, s.title), ` — ${s.publisher}. Licence: `, link(s.licenceUrl, s.licence), '. Not downloaded yet. The monthly job adds the ratings and this line shows the date it read them.'),
+        el('li', {}, link(s.landingUrl, s.title), `. ${s.publisher}. Licence: `, link(s.licenceUrl, s.licence), '. Not downloaded yet. The monthly job adds the ratings and this line shows the date it read them.'),
       ),
     );
   }

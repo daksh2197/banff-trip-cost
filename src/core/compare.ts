@@ -63,6 +63,6 @@ export function compareQuotes(a: QuoteCost, b: QuoteCost): Comparison {
   const tail =
     bigGap === 0
       ? ''
-      : ` The biggest gap is ${LINE_NAMES[big]}: ${cheaperName}'s is ${dollars(bigGap)} ${side < 0 ? 'lower' : 'higher'}.`;
+      : ` The biggest gap is ${LINE_NAMES[big]}: ${dollars(bigGap)} ${side < 0 ? 'lower' : 'higher'} for ${cheaperName}.`;
   return { totalDelta, deltas, sentence: head + tail };
 }

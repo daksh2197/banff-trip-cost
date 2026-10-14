@@ -106,7 +106,7 @@ describe('the comparison sentence', () => {
     expect(c.deltas).toEqual({ rental: 6800, fees: 3500, fuel: 1326, extras: 6000 });
     expect(c.totalDelta).toBe(17626);
     expect(c.sentence).toBe(
-      "A costs $176.26 less than B over the whole trip. The biggest gap is the rental itself (daily rate times days): A's is $68.00 lower.",
+      "A costs $176.26 less than B over the whole trip. The biggest gap is the rental itself (daily rate times days): $68.00 lower for A.",
     );
   });
 
@@ -131,7 +131,7 @@ describe('the comparison sentence', () => {
     const b = { ...a, label: 'B', totalCents: a.totalCents - 100, lines: { ...a.lines, rental: a.lines.rental - 900, fuel: a.lines.fuel + 800 } };
     const s = compareQuotes(a, b).sentence;
     expect(s).toMatch(/^B costs \$1\.00 less than A/);
-    expect(s).toMatch(/rental itself.*B's is \$9\.00 lower/);
+    expect(s).toMatch(/rental itself.*\$9\.00 lower for B/);
   });
 
   it('uses a plain name when a label is blank', () => {

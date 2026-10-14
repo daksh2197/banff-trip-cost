@@ -24,7 +24,13 @@ describe('vehicles', () => {
 
   it('gives each listing its own key', () => {
     expect(new Set(list.map(vehicleKey)).size).toBe(3);
-    expect(vehicleKey(base)).toBe('2026|Samplecar|Alpha|1.5|4|A8|X');
+    expect(vehicleKey(base)).toBe('2026|Samplecar|Alpha|1.5|4|A8|X|Compact|9|6.5|7.9');
+  });
+
+  it('keeps two rows that differ only in their ratings or class apart', () => {
+    expect(vehicleKey({ ...base, comb: 12 })).not.toBe(vehicleKey(base));
+    expect(vehicleKey({ ...base, city: 9.5 })).not.toBe(vehicleKey(base));
+    expect(vehicleKey({ ...base, cls: 'Midsize' })).not.toBe(vehicleKey(base));
   });
 
   it('picks the rating for combined, highway or city and stores it exactly as hundredths', () => {

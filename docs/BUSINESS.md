@@ -16,7 +16,7 @@ The calculator, the ranking, the comparison, sharing and offline use. That is th
 
 ### 1. A disclosed referral arrangement with trip services
 
-Today the page names no rental company, ranks none and links to none, and has no affiliate links. That is a deliberate promise, and the README and the page both state it. A referral arrangement would break that promise on the day it starts, so it has to be a visible decision, not a quiet one.
+Today the page names no rental company, ranks none and links to none, and has no affiliate links. That is a deliberate promise, and the README and the page both state it. A referral arrangement would break that promise on the day it starts, so it has to be a visible decision.
 
 What it would look like: a clearly labelled box, after the ranking and never inside it, that says "I earn a fee if you book through this link" next to one named trip service such as an activity or accommodation booking site. The ranking itself would not change and would never include a company that pays.
 
@@ -29,7 +29,7 @@ What it would look like: a clearly labelled box, after the ranking and never ins
 
 The calculator prices one trip. A spreadsheet plus a short PDF could plan it: a day-by-day sheet with the distances between the stops, the park days and passes per day, and a packing and winter-driving list built from the Parks Canada rules.
 
-- **Price to test:** $9 once, not a subscription. A Rockies trip is a once-or-twice-a-year thing.
+- **Price to test:** $9 once, with no subscription. A Rockies trip is a once-or-twice-a-year thing.
 - **What has to be true:** people who use the free calculator also want the planning around it.
 - **Cost to deliver:** near zero. It is a file, and the figures already exist in `src/data/reference.json`.
 - **Licence note:** the park prices are facts and are attributed. Parks Canada's web wording is not copied, and if this were sold the page text would need permission to reuse, so the sheet would summarise rules in my own words and link to the source.
@@ -53,7 +53,7 @@ There is no monthly bill to outrun. The break-even is the first sale.
 4. Count two numbers: clicks on the link I post (a tagged short link per post) and waitlist sign-ups.
 
 **Go:** 25 or more sign-ups in a week. Build the sheet and email them.
-**No-go:** fewer than 5. The calculator is fine, the offer is wrong. Change the offer, not the code.
+**No-go:** fewer than 5. The calculator works and the offer misses. Change the offer and leave the code.
 **In between:** run one more week in a different place before deciding.
 
 ## What I don't know yet

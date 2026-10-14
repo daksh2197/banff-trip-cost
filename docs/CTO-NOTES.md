@@ -55,9 +55,9 @@ People type `$1,234.56`, `1.234,56`, `8,5`, `NaN`, `1e9` and `-0`. [`src/core/pa
 
 A pure function gets numbers in and gives numbers out and does nothing else. `costQuote()`, `passCost()`, `rankQuotes()` and `compareQuotes()` are pure. That is why the tests need no browser.
 
-A property test invents hundreds of random inputs and checks a rule that must hold for all of them. Here: more kilometres never lowers the cost, more park days never lowers the pass cost, doubling the fuel price doubles the fuel cost to within a cent, and the total always equals the sum of its lines.
+A property test invents hundreds of random inputs and checks a rule that must hold for all of them. Here: more kilometres never lowers the cost and doubling the fuel price doubles the fuel cost to within a cent (both in `fuel.test.ts`), more park days never lowers the pass cost (`pass.test.ts`), and the total always equals the sum of its lines (`trip.test.ts`).
 
-- **See it:** [`src/core/fuel.test.ts`](../src/core/fuel.test.ts), the last four tests.
+- **See it:** [`src/core/fuel.test.ts`](../src/core/fuel.test.ts), the last four tests, then the two files named above.
 - **Run it:** `npm test`.
 - **Say it:** "Example tests prove the cases I thought of. Property tests cover the ones I didn't."
 
@@ -75,7 +75,7 @@ Anyone can edit that link, so [`decodeState()`](../src/core/share.ts) treats it 
 
 A service worker is a small script the browser keeps for one site. This one saves a copy of every file the first time the page opens, so it works with no signal. The copy is named by a hash of the files' contents, so the monthly data commit changes the hash and phones pick up the new data within a visit or two.
 
-The catch: the worker answers files from its saved copy first. Data you want fresh needs the new cache name to arrive first. It is why a test that swaps `vehicles.json` has to turn the worker off.
+The catch is data that changes. Code and fonts are answered from the saved copy, which is instant. Files under `/data/` are different: the worker asks the network first and only uses its copy with no signal, so a monthly data commit shows up on the next load with a connection. The first version answered everything from the copy, and an outside review found a phone showing last month's file for three visits.
 
 - **See it:** [`public/sw.js`](../public/sw.js) and [`scripts/stamp-sw.mjs`](../scripts/stamp-sw.mjs).
 - **Try it:** open the live site, switch to airplane mode, reload.
@@ -114,7 +114,7 @@ The last step is there because a push made with the built-in token does not star
 | "Refresh data" is red | A check failed, or the file changed shape | The failed run's log, first lines | It names the check and the numbers. The old data is still deployed. `Missing columns:` lists the names found, so you can see what Natural Resources Canada renamed |
 | "Refresh data" is red with `answered 404` | The download address changed | `pipeline/sources.ts` | Open the dataset page, copy the CSV's new link |
 | The vehicle picker is missing | `vehicles.json` is empty or failed to load | The line under "Add another quote" says which | Run **Refresh data** once. The page says the same thing in plain words |
-| The site shows old data a day after a refresh | The phone's saved copy | `public/sw.js` | Visit twice. The worker swaps copies in the background |
+| The site shows old data after a refresh | The deploy has not finished, or the phone is offline | Actions tab, then `public/sw.js` | Check the **Test and ship** run is green. The worker asks the network first for `/data/` files, so a reload with a connection gets the new data |
 | Green check, but there is no website | The repo is private, so the deploy steps are skipped on purpose | `.github/workflows/ship.yml` | Make the repo public, set Pages to **GitHub Actions**, run the workflow once |
 | Red X at "Ask GitHub where this site will live" | Public repo, Pages not switched on | Settings, Pages, Source | Set it to **GitHub Actions**, then **Re-run jobs** |
 | A shared link opens the sample | The link was cut off when pasted | `decodeState()` in `share.ts` | It must start `#s=v1.` and be complete. A page notice says when a link could not be read |

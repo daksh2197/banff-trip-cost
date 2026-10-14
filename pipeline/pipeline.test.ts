@@ -249,7 +249,7 @@ describe('the job, against a local server that behaves like the portal', () => {
     expect(await readFile(join(dir, 'provenance.json'), 'utf8')).toBe(provBefore);
   });
 
-  it('refuses a file that shrank to a third of the data already there', async () => {
+  it('refuses a file that shrank to 62% of the data already there', async () => {
     mode = 'ok';
     body = makeCsv(400);
     const dir = await tmp();

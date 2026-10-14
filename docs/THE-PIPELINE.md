@@ -1,6 +1,6 @@
 # The pipeline
 
-This is the one idea this repo adds to my last one: **an open-data pipeline**. A script fetches public data on a timer, checks it hard, and commits a small file the site reads. Nobody touches the numbers by hand, and a bad download cannot reach the site.
+This is the one idea this repo adds on top of the Mol-Bhav Meter pattern: **an open-data pipeline**. A script fetches public data on a timer, checks it hard, and commits a small file the site reads. Nobody touches the fuel ratings by hand, and a bad download cannot reach the site. The park prices and distances are still typed in by hand, with their dates, in `src/data/reference.json`.
 
 The code is in [`pipeline/`](../pipeline/). It reads in the same order as this page.
 
@@ -48,7 +48,7 @@ The redirect is why `download()` in `run.ts` follows redirects and why `provenan
 
 ## 3. Reading the file: `csv.ts` and `ratings.ts`
 
-`csv.ts` is a small reader that handles what real exports do: a byte-order mark, CRLF line endings, quoted fields with commas in them (`"Alpha ""Sport"", 2.0T"`), line breaks inside quotes, blank lines. A quote that never closes is an error, not a guess.
+`csv.ts` is a small reader that handles what real exports do: a byte-order mark, CRLF line endings, quoted fields with commas in them (`"Alpha ""Sport"", 2.0T"`), line breaks inside quotes, blank lines. A quote that never closes is an error.
 
 `ratings.ts` matches columns by name with case, spaces and punctuation removed, so `City (L/100 km)` and `city l/100km` are the same column. It trusts nothing else. The eight required columns must all be there or the whole file is refused with the column names it found. Then each row is judged alone:
 
@@ -70,7 +70,7 @@ A file with a few bad rows is normal. A file with many is not to be trusted. The
 
 | Check | Limit | Why |
 | --- | --- | --- |
-| Usable rows | at least 200 | A model year has many hundreds of listings. 53,702 bytes at roughly 90 bytes a row is about 600. 200 is my floor, not a published figure |
+| Usable rows | at least 200 | A model year has many hundreds of listings. 53,702 bytes at roughly 90 bytes a row is about 600. 200 is my own floor; no source publishes one |
 | Rows left out | at most 5% of rows read | One bad row is a typo. A tenth of the file is a format change |
 | The year is present | at least one row for the year asked for | Catches a file for the wrong year |
 | Shrinkage | the new count for the year is at least 70% of the count already in the repo | A truncated download looks valid row by row |

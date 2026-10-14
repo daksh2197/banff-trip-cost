@@ -52,6 +52,20 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  // The data files change when the monthly job runs: ask the network first, keep the last answer for no signal.
+  if (new URL(request.url).pathname.includes('/data/')) {
+    event.respondWith(
+      fetch(request)
+        .then((fresh) => {
+          const copy = fresh.clone();
+          if (fresh.ok) caches.open(CACHE).then((cache) => cache.put(request, copy));
+          return fresh;
+        })
+        .catch(() => caches.match(request, { ignoreSearch: true })),
+    );
+    return;
+  }
+
   // Code, fonts and icons: the saved copy is instant, so use it. Network only if it's missing.
   event.respondWith(caches.match(request, { ignoreSearch: true }).then((saved) => saved ?? fetch(request)));
 });

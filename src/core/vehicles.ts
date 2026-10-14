@@ -64,9 +64,9 @@ export function isVehicle(v: unknown): v is Vehicle {
   );
 }
 
-/** One id per distinct listing, short enough to live in a share link. */
+/** One id per distinct listing: every field, so two rows that differ in anything differ in key. Short enough for a share link. */
 export function vehicleKey(v: Vehicle): string {
-  return [v.year, v.make, v.model, v.engineL ?? '', v.cyl ?? '', v.trans, v.fuel].join('|');
+  return [v.year, v.make, v.model, v.engineL ?? '', v.cyl ?? '', v.trans, v.fuel, v.cls, v.city, v.hwy, v.comb].join('|');
 }
 
 export function ratingOf(v: Vehicle, basis: RatingBasis): number {

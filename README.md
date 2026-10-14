@@ -16,7 +16,7 @@
 
 A rental quote is only the first number on the trip. Fuel, the park pass and what the season adds all move the total, and they depend on what you drive and how far. I wanted the whole number before booking, not the headline one.
 
-So you paste the totals from each offer, pick a route, and the page adds the rest. Every line is on screen. The quote at the top is the one that costs least over the whole trip, not the one with the lowest daily rate.
+So you paste the totals from each offer, pick a route, and the page adds the rest. Every line is on screen. The quote at the top is the one that costs least over the whole trip. The lowest daily rate can lose.
 
 The numbers in the demo are samples I made up. They are not real quotes.
 
@@ -26,10 +26,10 @@ The numbers in the demo are samples I made up. They are not real quotes.
 
 - **Prices each quote over the same trip.** Rental (daily rate times days), the fees and taxes as quoted, fuel, the Parks Canada pass, and any winter extras you add, such as tires, chains, extra insurance or a second driver.
 - **Ranks them.** Cheapest total first. Equal totals share a rank and keep the order you typed them in. Each one shows its cost per day.
-- **Compares two quotes in one sentence.** It names the line with the biggest gap, for example "Small car costs $176.26 less than SUV over the whole trip. The biggest gap is the rental itself."
+- **Compares two quotes in one sentence.** It names the line with the biggest gap, the demo says "Small car costs $176.26 less than SUV over the whole trip. The biggest gap is the rental itself (daily rate times days): $68.00 lower for Small car."
 - **Works out the fuel from the vehicle.** Fuel use comes from Natural Resources Canada's Fuel Consumption Ratings, picked by model or by class average, or typed by you. The fuel price is always typed by you.
 - **Knows the park pass rules it can check.** Daily admission or the Discovery Pass, whichever is cheaper for your party, with the family and group rate for up to 7 in a vehicle. Youth are free. You enter the number of park days.
-- **Asks instead of guessing.** A blank fuel price, a route with no official distance, a zero or a negative where one makes no sense: the page says what is missing and shows no total.
+- **Asks instead of guessing.** A blank fuel price, blank park days, a route with no official distance, a zero or a negative where one makes no sense: the page says what is missing and shows no total.
 - **Shares the whole trip in a link.** The numbers ride after the `#`, which browsers never send to a website.
 - **Works with no signal** once it has loaded once. Add `?embed=1` to hide the page around it.
 - **Shows where every number comes from**, with a date, in the "Where the numbers come from" section.
@@ -61,7 +61,7 @@ git clone https://github.com/daksh2197/banff-trip-cost.git
 cd banff-trip-cost
 npm ci
 npm run dev           # the app, live-reloading, at http://localhost:5173
-npm test              # {{TESTS}} tests, about two seconds
+npm test              # 130 tests, about two seconds
 npm run build         # the finished site, in dist/
 npm run data:refresh  # download and check the ratings (needs network access to open.canada.ca)
 ```
@@ -98,12 +98,15 @@ src/
   data/reference.json  pass prices, routes, winter rules, sources: typed by hand, with dates
   ui/dom.ts          builds the page out of text nodes
   main.ts            wires the form to the brain and the brain to the screen
-  styles/            brand.css and fonts.css are the dakshdua.ca palette, copied unchanged
+  styles/            brand.css is the dakshdua.ca palette, copied unchanged. fonts.css loads the three typefaces from the app's own files
 pipeline/            the monthly data job
   csv.ts ratings.ts validate.ts sources.ts run.ts
+  pipeline.test.ts testkit.ts   its tests, and a generator of invented CSVs
   fixtures/          invented CSVs for the awkward cases
 public/data/         what the job writes: vehicles.json and provenance.json
-public/sw.js         the offline worker
+public/sw.js         the offline worker (public/ also holds the icons, the manifest and the font notice)
+scripts/             stamp-sw.mjs versions the worker at build time; make-icons.mjs drew the icons
+docs/                CTO notes, the pipeline, the business case, screenshots
 .github/workflows/   ship.yml (test and deploy), refresh-data.yml (monthly)
 ```
 
@@ -124,8 +127,8 @@ This is a calculator, not financial advice. Park fees and rules change, so check
 - **A label that fell apart on a phone.** At 320 pixels wide, "Fuel" and "Park pass" in the cost lines broke into one letter per row, because the page lets long words wrap anywhere and the grid took that as permission. I found it by looking at the screenshot. The label column now sizes to its text.
 - **A typo that read as a sentence.** The over-a-million message came out as "That the daily rate is over $1,000,000". It is a test now.
 - **A decimal point or a thousands mark.** "1.234" means one-and-a-bit to some people and one thousand two hundred thirty-four to others. For money and fuel the reader refuses a third decimal and says so. For kilometres it asks you to write 1200 or 1,200. It never guesses.
-- **Old data served from the cache.** The offline worker answers data files from its saved copy, which is right for speed and wrong for a test that swaps the file. The browser test now blocks the worker when it needs fresh data. A new build gets a new cache name from a hash of its files, so a monthly data commit reaches a phone within a visit or two.
-{{REVIEW}}
+- **Old data served from the cache.** The offline worker first answered every file from its saved copy, including the monthly data. An outside review simulated a data deploy and found a phone still showing the old file for three visits. The worker now asks the network first for `/data/` files and only falls back to its copy when there is no signal.
+- **Five things an outside review found that my tests had missed.** Before this went public it got a cold read from a second Claude session that had not seen it being built. It re-derived the maths with its own checks (20,000 random fuel cases against an exact-fraction oracle, 200,000 random strings through the number reader) and found no wrong totals. It found these instead. A blank "park days" box priced the pass at $0 and showed a total, so a blank now asks. Two vehicles that differed only in their ratings shared one picker key, so picking the first could apply the second's rating, so the key now includes every field. The offline worker held old data for three visits, described above. The compare table was cut off at 320 pixels wide, so on a phone each line is now a small card. And two sentences in these docs described a browser test that is not in the repo, so I took them out. All five are fixed, and the first two have tests.
 ## How this was built
 
 I build with Claude as my pair programmer. I bring the problem and decide what the thing should do. Claude writes most of the code. I review it until I can explain every file, and [the CTO notes](docs/CTO-NOTES.md) are my study guide, in public. Every commit carries the co-author line.
@@ -144,6 +147,6 @@ Ideas and pull requests are welcome. If a total looks wrong, [open an issue](htt
 
 ## License
 
-[MIT](LICENSE). The ratings and the park figures keep their own terms, listed above.
+[MIT](LICENSE). The ratings and the park figures keep their own terms, listed above. The three typefaces (Bricolage Grotesque, Geist, Geist Mono) are shipped under the SIL Open Font License 1.1; the notice is in [public/THIRD-PARTY-NOTICES.txt](public/THIRD-PARTY-NOTICES.txt).
 
 Built in Calgary by [Daksh Dua](https://dakshdua.ca).

@@ -55,7 +55,7 @@ function cleanQuote(v: unknown, n: number): QuoteForm {
     days: str(o['days'], 24),
     fees: str(o['fees'], 24),
     l100: str(o['l100'], 24),
-    vehicle: str(o['vehicle'], 120),
+    vehicle: str(o['vehicle'], 240),
     extras: extras.map((e) => {
       const x = isObject(e) ? e : {};
       return { label: str(x['label'], 40), amount: str(x['amount'], 24) };

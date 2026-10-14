@@ -396,6 +396,7 @@ main {
 
 .deltas th,
 .deltas td {
+  overflow-wrap: normal;
   padding: 6px 4px;
   text-align: right;
   border-top: 1px dotted var(--line);
@@ -412,10 +413,6 @@ main {
   border-top: 0;
   font-weight: 500;
   color: var(--muted);
-  max-width: 9ch;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .deltas td {
@@ -740,5 +737,61 @@ select:focus {
     animation: none !important;
     transition: none !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* Phones: a four-column table does not fit, so each line becomes a small card with its labels beside the values. */
+@media (max-width: 479px) {
+  .deltas thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+
+  .deltas,
+  .deltas tbody,
+  .deltas tr,
+  .deltas th,
+  .deltas td {
+    display: block;
+  }
+
+  .deltas tr {
+    padding: 8px 0;
+    border-top: 1px dotted var(--line);
+  }
+
+  .deltas tr.total {
+    border-top: 1px solid var(--line-2);
+  }
+
+  .deltas th,
+  .deltas td {
+    border: 0;
+    padding: 2px 0;
+  }
+
+  .deltas th:first-child {
+    color: var(--chalk);
+    font-weight: 600;
+    text-align: left;
+  }
+
+  .deltas td {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    text-align: right;
+  }
+
+  .deltas td::before {
+    content: attr(data-label);
+    color: var(--muted);
+    font-family: var(--body);
+    font-weight: 400;
+    text-align: left;
+    overflow-wrap: anywhere;
   }
 }

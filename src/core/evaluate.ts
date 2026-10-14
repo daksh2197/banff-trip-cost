@@ -86,8 +86,14 @@ export function evaluateTrip(s: FormState, ref: Reference): TripResult {
   const parkDays = take(problems, 'parkDays', parsePassDays(s.parkDays));
   const typed = s.passMode === 'typed' ? take(problems, 'typedPass', parseMoney(s.typedPass, 'the pass amount')) : 0;
 
+  // A blank "days" box must not quietly price the pass at zero.
+  const needsDays = s.passMode === 'auto' || s.passMode === 'daily';
+  if (needsDays && parkDays === 0 && s.parkDays.trim() === '') {
+    problems['parkDays'] = { blank: true, message: 'Enter the days you will be in a national park (0 if none).' };
+  }
+
   let pass: PassCost | null = null;
-  if (adults !== null && seniors !== null && youths !== null && parkDays !== null && typed !== null) {
+  if (!problems['parkDays'] && adults !== null && seniors !== null && youths !== null && parkDays !== null && typed !== null) {
     const needsParty = s.passMode === 'auto' || s.passMode === 'daily' || s.passMode === 'discovery';
     if (needsParty && adults + seniors + youths === 0) {
       problems['adults'] = { blank: true, message: 'Enter at least one traveller.' };
@@ -99,7 +105,8 @@ export function evaluateTrip(s: FormState, ref: Reference): TripResult {
   let kpassCents: number | null = 0;
   if (route?.kpass) {
     const days = take(problems, 'kDays', parsePassDays(s.kDays));
-    kpassCents = days === null ? null : days * ref.kpass.dayCents;
+    if (days === 0 && s.kDays.trim() === '') problems['kDays'] = { blank: true, message: 'Enter the days in Kananaskis (0 if none).' };
+    kpassCents = days === null || problems['kDays'] ? null : days * ref.kpass.dayCents;
   }
 
   const shared: TripShared | null =
