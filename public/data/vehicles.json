@@ -571,7 +571,7 @@
 {"year":2026,"make":"Toyota","model":"Grand Highlander AWD LE/XLE","cls":"Sport utility vehicle: Standard","engineL":2.4,"cyl":4,"trans":"AS8","fuel":"X","city":11.2,"hwy":8.6,"comb":10},
 {"year":2026,"make":"Toyota","model":"Grand Highlander AWD Limited/Platinum","cls":"Sport utility vehicle: Standard","engineL":2.4,"cyl":4,"trans":"AS8","fuel":"X","city":11.6,"hwy":9,"comb":10.7},
 {"year":2026,"make":"Toyota","model":"Grand Highlander Hybrid AWD","cls":"Sport utility vehicle: Standard","engineL":2.5,"cyl":4,"trans":"AV6","fuel":"X","city":6.6,"hwy":7.4,"comb":7},
-{"year":2026,"make":"Toyota","model":"Grand Highlander Hybrid MAX AWD","cls":"Sport utility vehicle: Standard","engineL":2.4,"cyl":4,"trans":"AV6","fuel":"X","city":9,"hwy":8.6,"comb":8.8},
+{"year":2026,"make":"Toyota","model":"Grand Highlander Hybrid MAX AWD","cls":"Sport utility vehicle: Standard","engineL":2.4,"cyl":4,"trans":"AS6","fuel":"X","city":9,"hwy":8.6,"comb":8.8},
 {"year":2026,"make":"Toyota","model":"Highlander AWD","cls":"Sport utility vehicle: Small","engineL":2.4,"cyl":4,"trans":"AS8","fuel":"X","city":11,"hwy":8.4,"comb":9.9},
 {"year":2026,"make":"Toyota","model":"Highlander Hybrid AWD","cls":"Sport utility vehicle: Standard","engineL":2.5,"cyl":4,"trans":"AV","fuel":"X","city":6.7,"hwy":6.8,"comb":6.7},
 {"year":2026,"make":"Toyota","model":"Highlander Hybrid AWD Limited/Platinum","cls":"Sport utility vehicle: Standard","engineL":2.5,"cyl":4,"trans":"AV","fuel":"X","city":6.6,"hwy":6.8,"comb":6.7},
