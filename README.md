@@ -25,6 +25,7 @@ The numbers in the demo are samples I made up. They are not real quotes.
 ## What it does
 
 - **Prices each quote over the same trip.** Rental (daily rate times days), the fees and taxes as quoted, fuel, the Parks Canada pass, and any winter extras you add, such as tires, chains, extra insurance or a second driver.
+- **Points you to where the quotes are.** Links to Kayak, Expedia and Turo, with a nudge to compare a Calgary airport pickup against Banff or Canmore. Nothing is fetched from those sites.
 - **Ranks them.** Cheapest total first. Equal totals share a rank and keep the order you typed them in. Each one shows its cost per day.
 - **Compares two quotes in one sentence.** It names the line with the biggest gap, the demo says "Small car costs $176.26 less than SUV over the whole trip. The biggest gap is the rental itself (daily rate times days): $68.00 lower for Small car."
 - **Works out the fuel from the vehicle.** Fuel use comes from Natural Resources Canada's Fuel Consumption Ratings, picked by model or by class average, or typed by you. The fuel price is always typed by you.
