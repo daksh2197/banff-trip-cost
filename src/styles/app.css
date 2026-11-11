@@ -508,6 +508,16 @@ main {
   font-size: 15px;
 }
 
+.hint.quote-sources {
+  margin: -8px 0 16px;
+}
+
+.hint.quote-sources a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 .err {
   margin: 4px 0 0;
   font-size: 14px;
