@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Banff Stay Cost</title>
+    <meta
+      name="description"
+      content="A hotel against an Airbnb or VRBO in Banff or Canmore, priced over the same nights: fees, taxes, parking, food and the extra drive."
+    />
+    <meta name="theme-color" content="#111214" />
+    <meta name="color-scheme" content="dark" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Banff Stay Cost" />
+    <meta property="og:description" content="Hotel or Airbnb/VRBO: the whole stay, ranked. Every number typed by you." />
+    <meta name="twitter:card" content="summary" />
+    <script type="module" src="/src/stay/main.ts"></script>
+  </head>
+  <body>
+    <a class="skip" href="#stays-h">Skip to the form</a>
+
+    <header class="site-head" data-chrome>
+      <a class="brand" href="https://dakshdua.ca" aria-label="Daksh Dua, dakshdua.ca">
+        <span class="brand-tile" aria-hidden="true">DD</span>
+        <span>Daksh Dua</span>
+      </a>
+      <nav class="head-links" aria-label="About this tool">
+        <a href="./">Trip cost</a>
+        <a href="%REPO_URL%">Source</a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="intro" data-chrome>
+        <h1>Banff Stay Cost</h1>
+        <p class="lede">A hotel or an Airbnb or VRBO? The nightly rate is the headline. This adds the fees, the taxes, parking, food and the drive in.</p>
+      </div>
+
+      <p class="note" id="sample-note" hidden>These are invented sample numbers so the page is not empty. They are not real prices. Press "Clear everything" and type yours.</p>
+      <p class="note" id="link-note" hidden>Opened from a shared link.</p>
+
+      <section class="results" aria-labelledby="results-h">
+        <h2 id="results-h" class="vh">The ranking</h2>
+        <div class="hero" id="hero" aria-live="polite" aria-atomic="true"></div>
+        <ol class="ranked" id="ranked"></ol>
+        <div class="actions">
+          <button type="button" class="btn btn-primary" id="copy-link">Copy link to these stays</button>
+          <button type="button" class="btn btn-ghost" id="clear">Clear everything</button>
+          <button type="button" class="btn btn-ghost" id="sample" hidden>Show the sample again</button>
+        </div>
+        <p class="toast" id="toast" role="status"></p>
+        <textarea class="copy-fallback" id="copy-fallback" rows="3" readonly hidden aria-label="Link to copy"></textarea>
+      </section>
+
+      <div class="inputs">
+        <section class="block" aria-labelledby="group-h">
+          <h2 id="group-h">1. Your group</h2>
+          <div class="row three">
+            <div class="field">
+              <label for="people">People</label>
+              <input id="people" type="text" inputmode="numeric" autocomplete="off" aria-describedby="people-err" />
+              <p class="err" id="people-err"></p>
+            </div>
+            <div class="field">
+              <label for="l100">Fuel use (L/100 km)</label>
+              <input id="l100" type="text" inputmode="decimal" autocomplete="off" aria-describedby="l100-err" />
+              <p class="err" id="l100-err"></p>
+            </div>
+            <div class="field">
+              <label for="fuel">Fuel price ($ a litre)</label>
+              <input id="fuel" type="text" inputmode="decimal" autocomplete="off" aria-describedby="fuel-err" />
+              <p class="err" id="fuel-err"></p>
+            </div>
+          </div>
+          <p class="hint">Fuel is only needed if a stay adds driving. There is no default fuel price: type what you expect to pay.</p>
+        </section>
+
+        <section class="block" aria-labelledby="stays-h">
+          <h2 id="stays-h">2. The stays</h2>
+          <p class="hint lead">Type each one as its checkout page shows it, for the same nights. Nothing here is fetched from any booking site.</p>
+          <p class="hint quote-sources">Get prices for the same dates from:
+            <a href="https://www.expedia.ca/Hotels" target="_blank" rel="noopener">Expedia</a>,
+            <a href="https://www.booking.com" target="_blank" rel="noopener">Booking.com</a>,
+            <a href="https://www.airbnb.ca" target="_blank" rel="noopener">Airbnb</a> and
+            <a href="https://www.vrbo.com/en-ca/" target="_blank" rel="noopener">VRBO</a>.
+            Compare Banff with Canmore: a cheaper bed further out can cost more once you add the drive.</p>
+          <div id="stay-list"></div>
+          <button type="button" class="btn btn-ghost" id="add-stay">Add another stay</button>
+        </section>
+      </div>
+
+      <section class="block fine" data-chrome aria-labelledby="fine-h">
+        <h2 id="fine-h">Read this before you book</h2>
+        <p>This is a calculator, not advice. It adds what you type. It does not check availability, work out taxes, or know a property's rules.</p>
+        <p>Extra driving uses the formula from the trip page: km times L/100 km divided by 100, times the fuel price. Food is your own guess for each place, because a kitchen changes what a day of eating costs.</p>
+        <p>Not affiliated with any hotel, booking site, Airbnb or VRBO. No property is named or ranked except the ones you type.</p>
+        <p>Everything runs on your device. A shared link carries your numbers after the "#", which browsers never send to a website.</p>
+      </section>
+    </main>
+
+    <footer class="site-foot" data-chrome>
+      <p>Built by <a href="https://dakshdua.ca">Daksh Dua</a> in Calgary. Part of <a href="./">Banff Trip Cost</a>.</p>
+      <p>Free and open source. <a href="%REPO_URL%">Read the code</a>.</p>
+    </footer>
+  </body>
+</html>

@@ -33,6 +33,7 @@ The numbers in the demo are samples I made up. They are not real quotes.
 - **Asks instead of guessing.** A blank fuel price, blank park days, a route with no official distance, a zero or a negative where one makes no sense: the page says what is missing and shows no total.
 - **Shares the whole trip in a link.** The numbers ride after the `#`, which browsers never send to a website.
 - **Works with no signal** once it has loaded once. Add `?embed=1` to hide the page around it.
+- **Hotel or Airbnb/VRBO, on its own page.** [`stay.html`](https://daksh2197.github.io/banff-trip-cost/stay.html) prices each place over the same nights: nightly rate, fees and taxes as the checkout shows them, parking, food a day (a kitchen changes it) and the fuel for driving in from a cheaper town. Ranked, with a sentence naming the biggest gap. Links to Expedia, Booking.com, Airbnb and VRBO; nothing is fetched from them.
 - **Shows where every number comes from**, with a date, in the "Where the numbers come from" section.
 
 I cut the Kananaskis free days, a travel-month tire advisory, miles per gallon and a French interface. They are in "What's next".
@@ -99,6 +100,7 @@ src/
   data/reference.json  pass prices, routes, winter rules, sources: typed by hand, with dates
   ui/dom.ts          builds the page out of text nodes
   main.ts            wires the form to the brain and the brain to the screen
+  stay/              the hotel-or-Airbnb page: stay.ts (the maths), share.ts (its link), main.ts (its screen), stay.test.ts
   styles/            brand.css is the dakshdua.ca palette, copied unchanged. fonts.css loads the three typefaces from the app's own files
 pipeline/            the monthly data job
   csv.ts ratings.ts validate.ts sources.ts run.ts

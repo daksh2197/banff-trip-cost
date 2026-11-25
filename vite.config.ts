@@ -16,6 +16,13 @@ export default defineConfig({
   base: './',
   build: {
     target: 'es2022',
+    rollupOptions: {
+      // Two pages: the trip cost (index.html) and where to stay (stay.html).
+      input: {
+        main: new URL('./index.html', import.meta.url).pathname,
+        stay: new URL('./stay.html', import.meta.url).pathname,
+      },
+    },
   },
   plugins: [
     {
